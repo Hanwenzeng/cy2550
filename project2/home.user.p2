@@ -1,0 +1,14 @@
+abi <abi/3.0>,
+include <tunables/global>
+/home/hanwen_zeng/p2 {
+  network tcp,
+  /tmp/project2* rw,
+  owner @{HOME}/.proj2/{,config} w,
+  owner @{HOME}/template r,
+  /run/sshd.pid r,
+  /var/log/syslog r,
+  /etc/{fstab,crontab,passwd,hosts} r,
+  /mnt/wsl/resolv.conf r,
+  /proc/{version,stat,buddyinfo} r,
+  /sys/devices/system/cpu/cpu0/power/control r,
+}
