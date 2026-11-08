@@ -19,8 +19,8 @@
     "account": "ops_9e84f7",
     "source": "203.0.113.44",
     "stolen": "/var/www/html/config.php",
-    "persistence": "/usr/local/bin/hfpc-backup.sh",
-    "persistence_command": "15 2 * * * root /usr/local/bin/hfpc-backup.sh",
+    "persistence": "/usr/local/bin/hfpc-report.sh",
+    "persistence_command": "0 4 * * 0 root /usr/local/bin/hfpc-report.sh",
     "modified": "/var/www/html/index.php",
     "evidence": "gcp:p5-Hanwenzeng-000019"
   },
