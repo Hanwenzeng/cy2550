@@ -1,0 +1,46 @@
+{
+  "incident_id": "p5-Hanwenzeng-a320981a",
+  "first": {
+    "type": "upload",
+    "artifact": "/var/www/html/uploads/garnet-amber-nova-11.php",
+    "time": "2026-11-02T13:07:43-05:00",
+    "guard": "Apache config rule p5-upload-guard (/etc/apache2/conf-available/p5-upload-guard.conf):FilesMatch '.php$' -> Require all denied for /var/www/html/uploads; fired as AH01797 'client denied by server configuration' (403) at 13:07:46",
+    "evidence": "/var/log/apache2/error.log:1"
+  },
+  "second": {
+    "type": "backup",
+    "artifact": "/var/www/html/backups/topaz-cinder-juniper.zip",
+    "time": "2026-11-02T13:32:11-05:00",
+    "hash": "1e07f7a7fc544cb92db721935d4e60cfd219ffbdd33de442d5983670b01ed7b6",
+    "evidence": "/var/log/apache2/access.log:8"
+  },
+  "success": {
+    "login_time": "2026-11-02T13:32:36-05:00",
+    "account": "ops_9e84f7",
+    "source": "203.0.113.44",
+    "stolen": "/etc/shadow",
+    "persistence": "/usr/local/bin/hfpc-maintenance.sh",
+    "persistence_command": "*/30 * * * * root /usr/local/bin/hfpc-maintenance.sh",
+    "modified": "/etc/crontab",
+    "evidence": "gcp:p5-Hanwenzeng-000019"
+  },
+  "deleted": {
+    "insert_id": "p5-Hanwenzeng-000019",
+    "event": "Nov  2 13:32:36 lab sshd[1168]: Accepted publickey for ops_9e84f7 from 203.0.113.44 port 35140 ssh2: ED25519 SHA256:G52WYzMuF9IkEN8kx6KJiDIs++sOxey4HVM/zkIDsdI",
+    "why": "hide the attacker's first SSH login as ops_9e84f7 from 203.0.113.44 using ops_key stolen from the backup zip 25 seconds earlier; the line is missing from auth.log and the botched cleanup left auth.log:9 as an exact duplicate of auth.log:8 (13:30:19 failed root login) in its place"
+  },
+  "timeline": [
+    "2026-11-02T13:07:43-05:00 | first | PHP webshell garnet-amber-nova-11.php (system($_GET['c'])) uploaded via POST /upload.php from 203.0.113.44 | /var/log/apache2/access.log:2",
+    "2026-11-02T13:07:46-05:00 | first | attacker requests /uploads/garnet-amber-nova-11.php to execute it, gets 403 | /var/log/apache2/access.log:3",
+    "2026-11-02T13:07:46-05:00 | first | guard denial: Apache p5-upload-guard AH01797 client denied by server configuration for /var/www/html/uploads/garnet-amber-nova-11.php | /var/log/apache2/error.log:1",
+    "2026-11-02T13:32:11-05:00 | second | backup download: 203.0.113.44 fetches /backups/topaz-cinder-juniper.zip (contains config.php and unencrypted SSH key ops_key) | /var/log/apache2/access.log:8",
+    "2026-11-02T13:32:36-05:00 | second | recovered vault event: SSH login as ops_9e84f7 from 203.0.113.44 with stolen ops_key | gcp:p5-Hanwenzeng-000019",
+    "2026-11-02T13:32:36-05:00 | second | log cleanup: this login line was removed from auth.log; botched edit left a duplicated line 9 (copy of line 8) in its place | /var/log/auth.log:9",
+    "2026-11-02T14:06:26-05:00 | second | session from 10.20.0.63 (same host ops_9e84f7 later uses) opens with sudo privileges | /var/log/auth.log:11",
+    "2026-11-02T14:07:06-05:00 | second | sensitive file access: sudo cat /etc/shadow | /var/log/auth.log:13",
+    "2026-11-02T14:07:26-05:00 | second | backdoor account created: sudo useradd -m -s /bin/bash hfpcuser | /var/log/auth.log:14",
+    "2026-11-02T14:16:02-05:00 | second | ops_9e84f7 logs in again from 10.20.0.63 | /var/log/auth.log:15",
+    "2026-11-02T14:17:09-05:00 | second | persistence: modified /etc/crontab runs '*/30 * * * * root /usr/local/bin/hfpc-maintenance.sh' as root | /var/log/syslog:2",
+    "2026-11-02T14:30:14-05:00 | second | persistence cron job fires again as root | /var/log/syslog:3"
+  ]
+}
