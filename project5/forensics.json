@@ -18,10 +18,10 @@
     "login_time": "2026-11-02T13:32:36-05:00",
     "account": "ops_9e84f7",
     "source": "203.0.113.44",
-    "stolen": "/etc/shadow",
-    "persistence": "/usr/local/bin/hfpc-maintenance.sh",
-    "persistence_command": "*/30 * * * * root /usr/local/bin/hfpc-maintenance.sh",
-    "modified": "/etc/crontab",
+    "stolen": "/var/www/html/config.php",
+    "persistence": "/usr/local/bin/hfpc-backup.sh",
+    "persistence_command": "15 2 * * * root /usr/local/bin/hfpc-backup.sh",
+    "modified": "/var/www/html/index.php",
     "evidence": "gcp:p5-Hanwenzeng-000019"
   },
   "deleted": {
