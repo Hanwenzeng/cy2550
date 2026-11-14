@@ -20,7 +20,7 @@
     "source": "203.0.113.44",
     "stolen": "/var/www/html/config.php",
     "persistence": "/root/.ssh/authorized_keys",
-    "persistence_command": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFXAIH/OVeFIC9ajnSftZKIHNczpRSyfMxAeNhoRSpIW abhi@p5",
+    "persistence_command": "echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFXAIH/OVeFIC9ajnSftZKIHNczpRSyfMxAeNhoRSpIW abhi@p5' >> /root/.ssh/authorized_keys",
     "modified": "/var/www/html/index.php",
     "evidence": "gcp:p5-Hanwenzeng-000019"
   },
