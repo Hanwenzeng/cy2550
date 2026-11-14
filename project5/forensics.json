@@ -19,8 +19,8 @@
     "account": "ops_9e84f7",
     "source": "203.0.113.44",
     "stolen": "/var/www/html/config.php",
-    "persistence": "/etc/passwd",
-    "persistence_command": "useradd -m -s /bin/bash hfpcuser",
+    "persistence": "/root/.ssh/authorized_keys",
+    "persistence_command": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFXAIH/OVeFIC9ajnSftZKIHNczpRSyfMxAeNhoRSpIW abhi@p5",
     "modified": "/var/www/html/index.php",
     "evidence": "gcp:p5-Hanwenzeng-000019"
   },
@@ -38,7 +38,7 @@
     "2026-11-02T13:32:36-05:00 | second | log cleanup: this login line was removed from auth.log; botched edit left a duplicated line 9 (copy of line 8) in its place | /var/log/auth.log:9",
     "2026-11-02T14:06:26-05:00 | second | session from 10.20.0.63 (same host ops_9e84f7 later uses) opens with sudo privileges | /var/log/auth.log:11",
     "2026-11-02T14:07:06-05:00 | second | sensitive file access: sudo cat /etc/shadow | /var/log/auth.log:13",
-    "2026-11-02T14:07:26-05:00 | second | backdoor account created: sudo useradd -m -s /bin/bash hfpcuser | /var/log/auth.log:14",
+    "2026-11-02T14:07:26-05:00 | second | persistence: backdoor account created (/etc/passwd): sudo useradd -m -s /bin/bash hfpcuser | /var/log/auth.log:14",
     "2026-11-02T14:16:02-05:00 | second | ops_9e84f7 logs in again from 10.20.0.63 | /var/log/auth.log:15",
     "2026-11-02T14:17:09-05:00 | second | persistence: modified /etc/crontab runs '*/30 * * * * root /usr/local/bin/hfpc-maintenance.sh' as root | /var/log/syslog:2",
     "2026-11-02T14:30:14-05:00 | second | persistence cron job fires again as root | /var/log/syslog:3"
